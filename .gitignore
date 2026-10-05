@@ -1,0 +1,44 @@
+# Byte-compiled
+__pycache__/
+*.py[cod]
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# TLS private keys (NEVER commit real private keys)
+*.key
+*.pem
+!*.example.pem
+
+# Environment files
+.env
+.env.local
+
+# Wireshark captures (too large for Git — add screenshots instead)
+*.pcap
+*.pcapng
+
+# Logs
+*.log

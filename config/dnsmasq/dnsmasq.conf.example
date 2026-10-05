@@ -1,0 +1,39 @@
+# ─────────────────────────────────────────────
+# dnsmasq Configuration — Team Sambhav
+# ─────────────────────────────────────────────
+# Location on Mac 1: /opt/homebrew/etc/dnsmasq.conf
+# (or wherever Homebrew installs dnsmasq config)
+#
+# This configures dnsmasq as a private DNS server
+# for the Team Sambhav local network.
+# ─────────────────────────────────────────────
+
+# Listen on all interfaces (including LAN)
+listen-address=127.0.0.1,10.7.18.72
+
+# Port
+port=53
+
+# Do not use /etc/resolv.conf for upstream
+no-resolv
+
+# Upstream DNS servers for non-local queries
+server=8.8.8.8
+server=8.8.4.4
+
+# ─────────────────────────────────────────────
+# Private domain records
+# ─────────────────────────────────────────────
+# Both domains point to Mac 2 (10.7.10.115)
+# where nginx handles TLS termination and
+# reverse proxying.
+# ─────────────────────────────────────────────
+
+address=/app.team1.test/10.7.10.115
+address=/api.team1.test/10.7.10.115
+
+# ─────────────────────────────────────────────
+# Logging (optional, useful for debugging)
+# ─────────────────────────────────────────────
+# log-queries
+# log-facility=/var/log/dnsmasq.log

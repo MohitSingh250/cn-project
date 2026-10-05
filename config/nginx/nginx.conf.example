@@ -1,0 +1,68 @@
+# ─────────────────────────────────────────────
+# nginx Configuration — Team Sambhav
+# ─────────────────────────────────────────────
+# Location on Mac 2: /opt/homebrew/etc/nginx/nginx.conf
+# (or wherever Homebrew installs nginx config)
+#
+# This configures nginx as:
+#   1. HTTPS edge / TLS termination
+#   2. Reverse proxy
+#   3. Round-robin load balancer
+# ─────────────────────────────────────────────
+
+worker_processes  1;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    sendfile        on;
+    keepalive_timeout  65;
+
+    # ─────────────────────────────────────────
+    # Upstream pool: Backend A + Backend B
+    # Round-robin load balancing (default)
+    # ─────────────────────────────────────────
+
+    upstream backends {
+        server 10.7.18.72:3001;    # Backend A — Mac 1 (Abhishek)
+        server 127.0.0.1:3002;     # Backend B — Mac 2 (Mohit, localhost)
+    }
+
+    # ─────────────────────────────────────────
+    # HTTPS Server Block
+    # ─────────────────────────────────────────
+
+    server {
+        listen       443 ssl;
+        server_name  app.team1.test api.team1.test;
+
+        # ─────────────────────────────────────
+        # TLS Configuration
+        # ─────────────────────────────────────
+
+        ssl_certificate      /path/to/certs/server.crt;
+        ssl_certificate_key  /path/to/certs/server.key;
+
+        ssl_protocols        TLSv1.2 TLSv1.3;
+        ssl_ciphers          HIGH:!aNULL:!MD5;
+        ssl_prefer_server_ciphers on;
+
+        # ─────────────────────────────────────
+        # Reverse Proxy to Upstream Backends
+        # ─────────────────────────────────────
+
+        location / {
+            proxy_pass http://backends;
+
+            proxy_set_header Host              $host;
+            proxy_set_header X-Real-IP         $remote_addr;
+            proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+}
