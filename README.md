@@ -8,10 +8,10 @@
 
 ## 👥 Team Members
 
-| Name | Role | Machine | IP Address |
-|------|------|---------|------------|
-| Mohit Singh | nginx HTTPS Edge / Reverse Proxy / Load Balancer, Backend B | Mac 2 | `10.7.10.115` |
-| Abhishek | Private DNS Server (dnsmasq), Backend A | Mac 1 | `10.7.18.72` |
+| Name | Enrollment No. | Role | Machine | IP Address |
+|------|----------------|------|---------|------------|
+| Mohit Singh | 2401020098 | nginx HTTPS Edge / Reverse Proxy / Load Balancer, Backend B | Mac 2 | `10.7.10.115` |
+| Abhishek | 2401020081 | Private DNS Server (dnsmasq), Backend A | Mac 1 | `10.7.18.72` |
 
 ---
 
